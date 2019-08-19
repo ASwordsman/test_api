@@ -1,28 +1,13 @@
 import requests
 import json as json_parser
-from api.role import *
-headers = {
-'AppType':'6',
-'AppVersion':'2.1.10.107557',
-'serverId':'1000',
-'DeviceType': '0',
-'uc':'TYTY',
-'InstId':'170114',
-'lan':'ch',
-'Content-Type':'application/json',
-'Accept-Encoding':'gzip',
-'DeviceUniqueId':'ffffffff-b144-e045-ffff-ffffffc0aca9-com.lingshi.inst.klxt',
-'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 8.1.0; OPPO R11s Build/OPM1.171019.011)',
-'token':'13282:1620379720:24eda61a-ec6c-4c96-b6c2-3e6cb9d39a05:a382417eb49ec270748a6b616519b6b2:1000v'
-}
-
 
 
 class RestClient():
-    def __init__(self, api_root_url, **kwargs):
-        self.dict = {"username":admin, "password":password, "servername":"ys.51tyty.com", "api_root_url":"http://ys.51tyty.com"}
+    def __init__(self, api_root_url, header, env_dict,**kwargs):
+        self.env_dict = env_dict
         self.session = requests.session()
-        self.header = headers
+        self.header = header
+        self.api_root_url = api_root_url
 
     def get(self, url, **kwargs):
         url = self.api_root_url + url

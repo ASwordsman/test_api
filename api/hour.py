@@ -3,30 +3,33 @@ import jsonpath
 # 增加课时url调用的参数social/services/rest/course/V2/User/Period
 from test_api.core.rest_client import RestClient
 
-data_add = {"PeriodArgu": {"dataOper": "append", "message": "", "period": 100, "userIds": [13308]}}
 
-period = data_add["PeriodArgu"]["period"]
+#
+# data_add = {"PeriodArgu": {"dataOper": "append", "message": "", "period": 100, "userIds": [13308]}}
+#
+# period = data_add["PeriodArgu"]["period"]
+#
+# # print(period)
+# # 减少课时/course/V2/User/Period
+# data_reduce = {
+#     "PeriodArgu": {
+#         "dataOper": "reduce",
+#         "message": "-5",
+#         "period": 5,
+#         "userIds": [
+#             13308
+#         ]
+#     }
+# }
+#
+# preiod_reduce = jsonpath.jsonpath(data_reduce, "$.PeriodArgu.period")
+#
+# user_id = 13285
+#
+# userids = 13285, 13286
 
-# print(period)
-# 减少课时/course/V2/User/Period
-data_reduce = {
-    "PeriodArgu": {
-        "dataOper": "reduce",
-        "message": "-5",
-        "period": 5,
-        "userIds": [
-            13308
-        ]
-    }
-}
-preiod_reduce = jsonpath.jsonpath(data_reduce, "$.PeriodArgu.period")
 
-user_id = 13285
-
-userids = 13285, 13286
-
-
-class APIs(RestClient):
+class Hours(RestClient):
 
     def login_student(self):
         self.session.headers.update(self.header)
@@ -55,13 +58,9 @@ class APIs(RestClient):
     def judge_hour(self, userids):
         # 验证用户是否能移除 通过用户在机构内是否有剩余课时数判断
         response = self.put("/social/services/rest/course/V2/CheckPeriod/User/{}".format(userids))
-        code = response.json()["code"]
         return response
 
-    def List_organization_hours(self):
+    def list_organization_hours(self):
         # 列出机构的课时列表
         response = self.get("/social/services/rest/course/V2/Inst/PeriodRecord")
         return response
-
-
-

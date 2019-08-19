@@ -1,4 +1,5 @@
-from api.repositories.hour import Hours
+from test_api.api.hour import Hours
+
 
 class LingShi(object):
     def __init__(self, api_root_url, **kwargs):

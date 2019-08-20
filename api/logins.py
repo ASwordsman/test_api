@@ -15,6 +15,8 @@ class Logins(RestClient):
         self.session.headers.update(self.header)
         response = self.put("/center/services/rest/user/Login/{}/{}".format(self.env_dict.env_dicts["admin"],
                                                                                       self.env_dict.env_dicts["password"]))
+        self.session.headers['token'] = response.json()['token']
+        # self.header['']
         return response.json()
 
 

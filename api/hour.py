@@ -34,9 +34,9 @@ class Hours(RestClient):
     def login_student(self):
         self.session.headers.update(self.header)
         # 登录
-        response = self.put("/center/services/rest/user/Login/{}/{}?server={}".format(self.env_dict["username"],
-                                                                                      self.env_dict["password"],
-                                                                                      self.env_dict["servername"]))
+        response = self.put("/center/services/rest/user/Login/{}/{}?server={}".format(self.env_dict.env_dicts["admin"],
+                                                                                      self.env_dict.env_dicts["password"],
+                                                                                      self.env_dict.env_dicts["servername"]))
         return response
 
     def add_hour(self, data):
@@ -64,3 +64,7 @@ class Hours(RestClient):
         # 列出机构的课时列表
         response = self.get("/social/services/rest/course/V2/Inst/PeriodRecord")
         return response
+
+
+hours = Hours()
+print(hours.login_student())

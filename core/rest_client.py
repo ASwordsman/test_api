@@ -1,13 +1,15 @@
 import requests
 import json as json_parser
 
+from test_api.env.env import Env
+
 
 class RestClient():
-    def __init__(self, api_root_url, header, env_dict,**kwargs):
-        self.env_dict = env_dict
+    def __init__(self, **kwargs):
+        self.env_dict = Env('ys')
         self.session = requests.session()
-        self.header = header
-        self.api_root_url = api_root_url
+        self.header = self.env_dict.env_dicts['header']
+        self.api_root_url = self.env_dict.env_dicts['api_root_url']
 
     def get(self, url, **kwargs):
         url = self.api_root_url + url

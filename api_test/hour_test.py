@@ -1,4 +1,3 @@
+from test_api import settings
 
-import settings
-
-print(settings.abspath)
+print(settings.parent_path)

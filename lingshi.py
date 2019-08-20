@@ -1,7 +1,11 @@
+from test_api.api import CourseLibrary
 from test_api.api.hour import Hours
+from test_api.api.logins import Logins
 
 
 class LingShi(object):
-    def __init__(self, api_root_url, **kwargs):
-        self.api_root_url = api_root_url
-        self.hour = Hours(self.api_root_url, **kwargs)
+
+    def __init__(self, *args, **kwargs):
+        self.hour = Hours(*args, **kwargs)
+        self.coures = CourseLibrary.CourseLibrary(*args, **kwargs)
+        self.logins = Logins(*args, **kwargs)

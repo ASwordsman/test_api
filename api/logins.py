@@ -16,8 +16,11 @@ class Logins(RestClient):
         response = self.put("/center/services/rest/user/Login/{}/{}".format(self.env_dict.env_dicts["admin"],
                                                                                       self.env_dict.env_dicts["password"]))
         self.session.headers['token'] = response.json()['token']
+        self.header_print = self.session.headers
+        response.encoding = 'utf-8'
+        self.response_text = response.text
         # self.header['']
-        return response.json()
+        return response
 
 
 logins = Logins()

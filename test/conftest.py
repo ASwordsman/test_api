@@ -3,14 +3,21 @@ import pytest
 from test_api.api.logins import Logins
 
 
-class Test(Logins):
+class WE(Logins):
+
 
     def test_login(self):
         response = self.login_admin()
-        return response['code'], response['token']
+        # print(self.header_print)
+        # print(self.url)
+        # print(self.data_print)
+        return response.json()['code'], response.json()['token']
 
 
-test = Test()
+
+test = WE()
+test.test_login()
+print(test.header_print)
 # test.test_login()
 @pytest.fixture()
 def login_code():

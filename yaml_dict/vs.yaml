@@ -18,3 +18,5 @@ header:
       Accept-Encoding: "gzip"
       token: "14027:1629424292:960c3264-aa71-482a-8539-402fc33b1308:82c6b627e85d086c3ce1fb7e2dafa3cf:97v"
       Content-Length: "87"
+servername: "vs.51tyty.com"
+api_root_url: "http://vs.51tyty.com"

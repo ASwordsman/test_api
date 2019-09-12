@@ -5,64 +5,97 @@ from test_api.env.env import Env
 
 class RestClient(object):
     def __init__(self):
+        self.response_type = 0  # 若为1时 response的返回值的类型是str 及可以取出
         self.header_print = None  # 请求头
         self.url = None  # url
         self.data_print = None  # 参数
         self.response_text = None
+        self.response_json = None  # 可以直接调用 返回值为json格式的时候
         self.env_dict = Env('ys')
         self.session = requests.session()
         self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']
+        self.data = None
 
     def get(self, url, **kwargs):
         url = self.api_root_url + url
         self.url = url
-        return self.session.get(url, **kwargs)
+        response = self.session.get(url, **kwargs)
+        try:
+            self.response_type = 0
+            self.response_json = response.json()
+        except Exception as e:
+            self.response_type = 1
+            self.response_json = response.text
+        return response
 
     def post(self, url, data=None, json=None, **kwargs):
         url = self.api_root_url + url
-        self.url = url
+        self.url = str(url)
 
         if data:
-            self.data_print = "请求参数" + data
+            self.data = data
+            self.data_print = "请求参数" + str(data)
         elif json:
-            self.data_print = "请求参数" + json
+            self.data = data
+            self.data_print = "请求参数" + str(json)
 
         else:
             pass
-
-        return self.session.post(url, data, json, **kwargs)
+        response = self.session.post(url, data, json, **kwargs)
+        try:
+            self.response_type = 0
+            self.response_json = response.json()
+        except Exception as e:
+            self.response_type = 1
+            self.response_text = response.text
+        return response
 
     def options(self, url, **kwargs):
         url = self.api_root_url + url
-        self.url = url
+        self.url = str(url)
         return self.session.options(url, **kwargs)
 
     def head(self, url, **kwargs):
         url = self.api_root_url + url
-        self.url = url
+        self.url = str(url)
         return self.session.head(url, **kwargs)
 
     def put(self, url, json=None, **kwargs):
         url = self.api_root_url + url
-        self.url = url
+        self.url = str(url)
         if json:
-            self.data_print = "请求参数" + json
+            self.data = json
+            self.data_print = "请求参数" + str(json)
 
         self.url = url
-        return self.session.put(url, json=json, **kwargs)
+        response = self.session.put(url, json=json, **kwargs)
+        try:
+            self.response_type = 0
+            self.response_json = response.json()
+        except Exception as e:
+            self.response_type = 1
+            self.response_text = response.text
+        return response
 
     def patch(self, url, data=None, **kwargs):
         url = self.api_root_url + url
-        self.url = url
+        self.url = str(url)
         if data:
+            self.data = data
             self.data_print = "请求参数" + data
         return self.session.patch(url, data, **kwargs)
 
     def delete(self, url, **kwargs):
         url = self.api_root_url + url
-        self.url = url
-        return self.session.delete(url, **kwargs)
+        self.url = str(url)
+        response = self.session.delete(url, **kwargs)
+        try:
+            self.response_type = 0
+            self.response_json = response.json()
+        except Exception as e:
+            self.response_type = 1
+            self.response_text = response.text
 
     # def request(self, url, method_name, data=None, json=None, **kwargs):
     #     url = self.api_root_url + url

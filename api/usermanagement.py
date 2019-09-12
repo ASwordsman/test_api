@@ -3,18 +3,15 @@ from test_api.core.rest_client import RestClient
 
 class UserManagement(RestClient):
 
-    def login_student(self):
+    def login_student(self, username, password):
         self.session.headers.update(self.header)
         # 登录
-        response = self.put("/center/services/rest/user/Login/{}/{}".format(self.env_dict.env_dicts["student"],
-                                                                                      self.env_dict.env_dicts["password"]))
-
+        response = self.put("/center/services/rest/user/Login/{}/{}".format(username, password))
         self.session.headers['token'] = response.json()['token']
         self.header_print = self.session.headers
         response.encoding = 'utf-8'
-        self.response_text = response.text
 
-        return response.json()
+        return response
 
     def login_admin(self):
         self.session.headers.update(self.header)
@@ -23,16 +20,14 @@ class UserManagement(RestClient):
         self.session.headers['token'] = response.json()['token']
         self.header_print = self.session.headers
         response.encoding = 'utf-8'
-        self.response_text = response.text
 
-        return response.json()
+        return response
 
     def Obtaining_Institutional_Configuration_Information(self):
         #获取机构配置信息
 
         response = self.get('/user/services/rest/user/Startup')
-
-        return response.json()
+        return response
 
 
 
@@ -45,23 +40,22 @@ class UserManagement(RestClient):
 
     def user_add(self, Data):
         #添加用户
-        response = self.post('/user/services/rest/user/', data=Data)
+        response = self.post('/user/services/rest/user/', json=Data)
 
-        return response.json()
-
+        return response
 
     def username_get(self, groupid):
         #获取用户列表
         response = self.get('/social/services/rest/group/GetUsers/{}/all'.format(groupid))
 
-        return response.json()
+        return response
 
 
     def revise_remarks(self, Data):
         #修改用户备注
         response = self.put('/user/services/rest/user/Nickname', json=Data)
 
-        return response.json()
+        return response
 
 
     def modify_user_validity_period(self, Data):
@@ -69,7 +63,7 @@ class UserManagement(RestClient):
 
         response = self.post('/user/services/rest/transaction/UserTime', data=Data)
 
-        return response.json()
+        return response
 
     def search_user(self, groupid):
         #搜索用户

@@ -1,4 +1,3 @@
-import pytest
 import allure
 
 from test_api.test.conftest import test

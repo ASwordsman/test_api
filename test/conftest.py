@@ -2,7 +2,7 @@ import pytest
 import json
 from pprint import pprint
 
-from test_api.api.logins import Logins
+from test_api.api.usermanagement import Logins
 
 
 class WE(Logins):

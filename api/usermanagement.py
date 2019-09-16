@@ -32,7 +32,6 @@ class UserManagement(RestClient):
 
 
     def Institutional_information_get(self):
-
         #获取机构信息
 
         response = self.get('/user/services/rest/user/Startup')
@@ -40,12 +39,14 @@ class UserManagement(RestClient):
 
     def user_add(self, Data):
         #添加用户
+
         response = self.post('/user/services/rest/user/', json=Data)
 
         return response
 
     def username_get(self, groupid):
         #获取用户列表
+
         response = self.get('/social/services/rest/group/GetUsers/{}/all'.format(groupid))
 
         return response
@@ -60,7 +61,6 @@ class UserManagement(RestClient):
 
     def modify_user_validity_period(self, Data):
         # 修改用户有效期
-
         response = self.post('/user/services/rest/transaction/UserTime', data=Data)
 
         return response

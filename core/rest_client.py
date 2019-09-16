@@ -4,6 +4,10 @@ from test_api.env.env import Env
 
 
 class RestClient(object):
+    """
+    该类是对request.session库的一个扩展类
+    是这个框架的核心类
+    """
     def __init__(self):
         self.response_type = 0  # 若为1时 response的返回值的类型是str 及可以取出
         self.header_print = None  # 请求头
@@ -15,7 +19,8 @@ class RestClient(object):
         self.session = requests.session()
         self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']
-        self.data = None
+        self.data = None  # 用来存储请求的参数
+        self.news = ''
 
     def get(self, url, **kwargs):
         url = self.api_root_url + url
@@ -37,7 +42,7 @@ class RestClient(object):
             self.data = data
             self.data_print = "请求参数" + str(data)
         elif json:
-            self.data = data
+            self.data = json
             self.data_print = "请求参数" + str(json)
 
         else:
@@ -61,19 +66,23 @@ class RestClient(object):
         self.url = str(url)
         return self.session.head(url, **kwargs)
 
-    def put(self, url, json=None, **kwargs):
+    def put(self, url, json=None, data=None, **kwargs):
         url = self.api_root_url + url
         self.url = str(url)
         if json:
             self.data = json
             self.data_print = "请求参数" + str(json)
 
-        self.url = url
+        else:
+            self.data = data
+            self.data_print = "请求参数" + str(json)
         response = self.session.put(url, json=json, **kwargs)
         try:
             self.response_type = 0
             self.response_json = response.json()
+
         except Exception as e:
+
             self.response_type = 1
             self.response_text = response.text
         return response

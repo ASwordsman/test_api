@@ -88,3 +88,4 @@ class UserManagement(RestClient):
 
 
 usermanagement = UserManagement()
+print(usermanagement.login_admin())

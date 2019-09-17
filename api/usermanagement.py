@@ -1,5 +1,7 @@
 from test_api.core.rest_client import RestClient
-
+"""
+用户管理模块api的封装
+"""
 
 class UserManagement(RestClient):
 

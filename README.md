@@ -21,10 +21,11 @@ yaml_dict 文件: 负责管理测试数据
     缺点  不可以使用parameterize 但感觉 并没有关系 使用fixture 也可以进行数据驱动
           后期case增多 可能会造成 conftest文件过大 conftest文件允许同一目录下有多个应该不是大问题
     
-  
+9月1号 
   在 reclient 类中添加requonse属性 解决了过于依赖conftest文件的 问题 使得编码更加简洁
 
   
     有改善建议请联系 微信 wanghaikang123 如有学习需求 也可联系  备注请填 测试学习 --地区 姓名选填
                                                                            邮箱 1184774275@qq.com  
     
+

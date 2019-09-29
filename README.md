@@ -23,7 +23,8 @@ yaml_dict 文件: 负责管理测试数据
     
 9月1号 
   在 reclient 类中添加requonse属性 解决了过于依赖conftest文件的 问题 使得编码更加简洁
-
+9月29号 
+  新增log日志用于pytest的调试
   
     有改善建议请联系 微信 wanghaikang123 如有学习需求 也可联系  备注请填 测试学习 --地区 姓名选填
                                                                            邮箱 1184774275@qq.com  

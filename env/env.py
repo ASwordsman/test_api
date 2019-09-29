@@ -23,6 +23,9 @@ class Env(object):
             dirpath = self.abspath + '\\vs.yaml'
         elif self.env_name == 'ws':
             dirpath = self.abspath + '\\ws.yaml'
+
+        elif self.env_name == 'us':
+            dirpath = self.abspath + '\\us.yaml'
         else:
             pass
         with open(dirpath, 'r+') as f:

@@ -15,7 +15,7 @@ class RestClient(object):
         self.data_print = None  # 参数
         self.response_text = None
         self.response_json = None  # 可以直接调用 返回值为json格式的时候
-        self.env_dict = Env('vs')
+        self.env_dict = Env('us')
         self.session = requests.session()
         self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']
@@ -75,7 +75,7 @@ class RestClient(object):
 
         else:
             self.data = data
-            self.data_print = "请求参数" + str(json)
+            self.data_print = "请求参数" + str(data)
         response = self.session.put(url, json=json, **kwargs)
         try:
             self.response_type = 0

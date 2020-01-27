@@ -113,6 +113,8 @@ class UserManagement(RestClient):
         return response
 
 
+
+
 usermanagement = UserManagement()
 # usermanagement.login_admin()
 # usermanagement.Institutional_information_get()

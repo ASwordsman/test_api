@@ -20,7 +20,7 @@ execl 文件 ：存放execl测试数据
   
   1 使用conftest.py 和fixture 来进行请求参数的管理 和返回数据的处理
   
-    缺点  不可以使用parameterize 但感觉 并没有关系 使用fixture 也可以进行数据驱动
+    缺点  
           后期case增多 可能会造成 conftest文件过大 conftest文件允许同一目录下有多个应该不是大问题
     
     解决方法  为更适用于实际的项目中使用 新增execl管理测试数据 以便管理大量的case 并使用 pytest进行数据驱动

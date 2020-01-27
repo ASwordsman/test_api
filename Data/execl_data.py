@@ -64,5 +64,5 @@ class ExeclData(object):
 
 if __name__ == '__main__':
     data = ExeclData('test')
-    print(data.list_desc)
-    print(data.list_data)
+    print(data.list_desc[1])
+    print(data.list_data[1])

@@ -7,15 +7,22 @@ from test_api.api.train_get import Train
 import jsonpath
 
 data = ExeclData('test')
-# data_dict, path_dict, assert_dict = data.data_return()[0]
 train = Train()
 
 
-# print(data.data_return())
+class TestTrain(object):
+    @pytest.mark.parametrize(('data_dict', 'path_dict', 'assert_dict'), data.list_data, ids=data.list_desc)
+    def test_train_get(self, data_dict, path_dict, assert_dict):
+        response = train.train_get(path_dict)
+        assert response.status_code == assert_dict['status_code'], 'HTTP状态码'
+        for i in path_dict.keys():
+            if '$' in i:
+                res = jsonpath.jsonpath(response.json(), i)
+                assert res == assert_dict['i']
 
-@pytest.mark.parametrize(('data_dict', 'path_dict', 'assert_dict'), data.list_data, ids=data.list_desc)
-class Test_Train():
-    def test_test_login(self, data_dict, path_dict, assert_dict):
+    @pytest.mark.parametrize(('data_dict', 'path_dict', 'assert_dict'), [data.list_data][1], ids=[data.list_desc][1])
+    def test_train_get_tiaoshi(self, data_dict, path_dict, assert_dict):
+        ##用于调试 通过下标取值对应execl的值数
         response = train.train_get(path_dict)
         assert response.status_code == assert_dict['status_code'], 'HTTP状态码'
         for i in path_dict.keys():

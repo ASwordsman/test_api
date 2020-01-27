@@ -16,6 +16,7 @@ class RestClient(object):
         self.response_text = None
         self.response_json = None  # 可以直接调用 返回值为json格式的时候
         self.env_dict = Env('us')
+
         self.session = requests.session()
         self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']

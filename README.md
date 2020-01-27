@@ -1,5 +1,5 @@
 # test_api框架介绍
-接口测试框架 --持续完善中 pytest + requests + jenkins
+接口测试框架 --持续完善中 pytest + requests + jenkins + allure
 
 本框架使用关键字自动化测试框架概念  需要一定的python基础  可适用于复杂业务逻辑api 也可适用于详细的大量的case
 

@@ -18,7 +18,7 @@ execl 文件 ：存放execl测试数据
 
 解决方案
   
-  1 使用conftest.py 和fixture 来进行请求参数的管理 和返回数据的处理
+  1 可使用conftest.py 和fixture 来进行请求参数的管理 和返回数据的处理
   
     缺点  
           后期case增多 可能会造成 conftest文件过大 conftest文件允许同一目录下有多个应该不是大问题

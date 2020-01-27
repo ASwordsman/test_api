@@ -23,6 +23,8 @@ execl 文件 ：存放execl测试数据
     缺点  不可以使用parameterize 但感觉 并没有关系 使用fixture 也可以进行数据驱动
           后期case增多 可能会造成 conftest文件过大 conftest文件允许同一目录下有多个应该不是大问题
     
+    解决方法  为更适用于实际的项目中使用 新增execl管理测试数据 以便管理大量的case 并使用 pytest进行数据驱动
+    
 9月1号 
   在 reclient 类中添加requonse属性 解决了过于依赖conftest文件的 问题 使得编码更加简洁
 9月29号 

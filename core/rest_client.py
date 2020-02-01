@@ -18,7 +18,7 @@ class RestClient(object):
         self.env_dict = Env('us')
 
         self.session = requests.session()
-        self.header = self.env_dict.env_dicts['header']
+        # self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']
         self.data = None  # 用来存储请求的参数
         self.news = ''
@@ -27,6 +27,7 @@ class RestClient(object):
         url = self.api_root_url + url
         self.url = url
         response = self.session.get(url, **kwargs)
+        self.header_print = response.headers
         try:
             self.response_type = 0
             self.response_json = response.json()
@@ -49,6 +50,7 @@ class RestClient(object):
         else:
             pass
         response = self.session.post(url, data, json, **kwargs)
+        self.header_print = response.headers
         try:
             self.response_type = 0
             self.response_json = response.json()
@@ -78,6 +80,7 @@ class RestClient(object):
             self.data = data
             self.data_print = "请求参数" + str(data)
         response = self.session.put(url, json=json, **kwargs)
+        self.header_print = response.headers
         try:
             self.response_type = 0
             self.response_json = response.json()

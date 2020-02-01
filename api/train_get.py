@@ -14,5 +14,7 @@ class Train(RestClient):
         response.encoding = 'utf-8'
         return response
 
-
+if __name__ == '__main__':
+    train = Train()
+    print(train.url)
 

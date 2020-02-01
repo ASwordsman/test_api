@@ -20,7 +20,7 @@ class TestTrain(object):
                 res = jsonpath.jsonpath(response.json(), i)
                 assert res == assert_dict['i']
 
-    @pytest.mark.parametrize(('data_dict', 'path_dict', 'assert_dict'), [data.list_data][1], ids=[data.list_desc][1])
+    @pytest.mark.parametrize(('data_dict', 'path_dict', 'assert_dict'), [data.list_data[1]], ids=[data.list_desc[1]])
     def test_train_get_tiaoshi(self, data_dict, path_dict, assert_dict):
         ##用于调试 通过下标取值对应execl的值数
         response = train.train_get(path_dict)
@@ -32,4 +32,4 @@ class TestTrain(object):
 
 
 if __name__ == '__main__':
-    pytest.main('v')
+    pytest.main(['-v', 'test_train.py'])

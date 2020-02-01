@@ -34,4 +34,6 @@ execl 文件 ：存放execl测试数据
           新增execl数据驱动模块（基于pandas库）
 
     有改善建议请联系 微信 wanghaikang123 如有学习需求 也可联系  备注请填 测试学习 --地区 姓名选填
-                                                                           邮箱 1184774275@qq.com  
+
+![image](https://github.com/ASwordsman/test_api/blob/master/jpg/result.png)
+          

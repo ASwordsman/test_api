@@ -1,0 +1,1 @@
+A text attacment in module scope fixture

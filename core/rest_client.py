@@ -1,6 +1,7 @@
 import requests
 
 from test_api.env.env import Env
+import json
 
 
 class RestClient(object):
@@ -8,6 +9,7 @@ class RestClient(object):
     该类是对request.session库的一个扩展类
     是这个框架的核心类
     """
+
     def __init__(self):
         self.response_type = 0  # 若为1时 response的返回值的类型是str 及可以取出
         self.header_print = None  # 请求头
@@ -16,9 +18,8 @@ class RestClient(object):
         self.response_text = None
         self.response_json = None  # 可以直接调用 返回值为json格式的时候
         self.env_dict = Env('us')
-
         self.session = requests.session()
-        # self.header = self.env_dict.env_dicts['header']
+        self.header = self.env_dict.env_dicts['header']
         self.api_root_url = self.env_dict.env_dicts['api_root_url']
         self.data = None  # 用来存储请求的参数
         self.news = ''
@@ -28,9 +29,10 @@ class RestClient(object):
         self.url = url
         response = self.session.get(url, **kwargs)
         self.header_print = response.headers
+        self.header_print = self.header_prints()
         try:
             self.response_type = 0
-            self.response_json = response.json()
+            self.response_json = json.dumps(response.json(), indent=4, ensure_ascii=False)
         except Exception as e:
             self.response_type = 1
             self.response_json = response.text
@@ -39,18 +41,19 @@ class RestClient(object):
     def post(self, url, data=None, json=None, **kwargs):
         url = self.api_root_url + url
         self.url = str(url)
-
         if data:
             self.data = data
-            self.data_print = "请求参数" + str(data)
+            self.data_print = json.dumps(data, indent=4, ensure_ascii=False)
         elif json:
             self.data = json
-            self.data_print = "请求参数" + str(json)
+            self.data_print = json.dumps(data, indent=4, ensure_ascii=False)
 
         else:
             pass
         response = self.session.post(url, data, json, **kwargs)
+        self.response_json = self.response_json = json.dumps(response.json(), indent=4, ensure_ascii=False)
         self.header_print = response.headers
+        self.header_print = self.header_prints()
         try:
             self.response_type = 0
             self.response_json = response.json()
@@ -78,15 +81,15 @@ class RestClient(object):
 
         else:
             self.data = data
-            self.data_print = "请求参数" + str(data)
+            self.data_print = json.dumps(data, indent=4, ensure_ascii=False)
         response = self.session.put(url, json=json, **kwargs)
+        self.response_json = json.dumps(response.json(), indent=4, ensure_ascii=False)
         self.header_print = response.headers
+        self.header_print = self.header_prints()
         try:
             self.response_type = 0
             self.response_json = response.json()
-
         except Exception as e:
-
             self.response_type = 1
             self.response_text = response.text
         return response
@@ -96,19 +99,31 @@ class RestClient(object):
         self.url = str(url)
         if data:
             self.data = data
-            self.data_print = "请求参数" + data
-        return self.session.patch(url, data, **kwargs)
+            self.data_print = json.dumps(data, indent=4, ensure_ascii=False)
+        response = self.session.patch(url, data, **kwargs)
+        self.response_json = json.dumps(response.json(), indent=4, ensure_ascii=False)
+        return response
 
     def delete(self, url, **kwargs):
         url = self.api_root_url + url
         self.url = str(url)
         response = self.session.delete(url, **kwargs)
+        self.response_json = json.dumps(response.json(), indent=4, ensure_ascii=False)
+
+        self.header_print = response.headers
+        self.header_print = self.header_prints()
         try:
             self.response_type = 0
             self.response_json = response.json()
         except Exception as e:
             self.response_type = 1
             self.response_text = response.text
+
+    def header_prints(self):
+        self.header_printss = ''
+        for key, value in dict(self.header_print).items():
+            self.header_printss += key + ":" + value + '<br>'
+        return self.header_printss
 
     # def request(self, url, method_name, data=None, json=None, **kwargs):
     #     url = self.api_root_url + url
@@ -128,3 +143,8 @@ class RestClient(object):
     #         return self.session.patch(url, data, **kwargs)
     #     if method_name == "delete":
     #         return self.session.delete(url, **kwargs)
+
+
+if __name__ == '__main__':
+    dict1 = {'start': '杭州', 'end': '北京', 'ishigh': 0}
+    print(json.dumps(dict1, indent=4, ensure_ascii=False))

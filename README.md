@@ -10,7 +10,7 @@ yaml_dict 文件: 负责管理环境变量
 
 execl 文件 ：存放execl测试数据
 
-本框架有俩部分 目前带添加  pytest部分和jenkins部分
+本框架有俩部分 目前带添加  jenkins部分
 
 目前编写自动化框架主要面临主要问题是：
 

@@ -38,3 +38,10 @@ execl 文件 ：存放execl测试数据
 测试报告展示图
 ![image](https://github.com/ASwordsman/test_api/blob/master/jpg/result.png)
           
+环境安装
+       1.下载 pip install  pipenv
+       2.运行 pipenv install
+
+       安装allure
+                 下载连接 https://github.com/allure-framework/allure2/releases/tag/2.13.1
+                 教程 https://docs.qameta.io/allure/

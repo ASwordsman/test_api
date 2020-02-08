@@ -18,13 +18,10 @@ execl 文件 ：存放execl测试数据
 
 解决方案
   
-  1 可使用conftest.py 和fixture 来进行请求参数的管理 和返回数据的处理
-  
-    缺点  
-          后期case增多 可能会造成 conftest文件过大 conftest文件允许同一目录下有多个应该不是大问题
+  可使用conftest.py 和fixture 来进行请求参数的管理 和返回数据的处理
     
-    解决方法  为更适用于实际的项目中使用 新增execl管理测试数据 以便管理大量的case 并使用 pytest进行数据驱动
-更新记录并增加pytest数据驱动调试功能
+    为更适用于实际的项目中使用 新增execl管理测试数据 以便管理大量的case 并使用 pytest进行数据驱动
+    更新记录并增加pytest数据驱动调试功能
 
       9月1号 
         在 reclient 类中添加requonse属性 解决了过于依赖conftest文件的 问题 使得编码更加简洁
@@ -38,3 +35,10 @@ execl 文件 ：存放execl测试数据
 测试报告展示图
 ![image](https://github.com/ASwordsman/test_api/blob/master/jpg/result.png)
           
+环境安装
+       1.下载 pip install  pipenv
+       2.运行 pipenv install
+
+安装allure
+       下载连接 https://github.com/allure-framework/allure2/releases/tag/2.13.1
+       安装教程 https://docs.qameta.io/allure/

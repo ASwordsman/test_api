@@ -3,7 +3,7 @@ pipline{
     agent{node "master"}
 
     stages{
-        stage("build"){
+        stage("mavenbuild"){
             steps{
             script{
                 mvnHome = tool "M2"

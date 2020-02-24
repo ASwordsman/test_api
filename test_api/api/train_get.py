@@ -1,5 +1,5 @@
-from test_api.Data.execl_data import ExeclData
-from test_api.core.rest_client import RestClient
+from Data.execl_data import ExeclData
+from core.rest_client import RestClient
 
 
 class Train(RestClient):

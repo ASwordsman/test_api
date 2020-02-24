@@ -1,13 +1,13 @@
 import pandas as pd
 import os
 
-from test_api import settings
+import settings
 
 
 class ExeclData(object):
     def __init__(self, file_name):
         self.file_name = file_name
-        self.df = pd.read_excel(os.path.join(settings.parent_path, 'execl\\{}.xlsx'.format(self.file_name)))
+        self.df = pd.read_excel(os.path.join(os.path.join(settings.parent_path, 'execl'), ('{}.xlsx'.format(self.file_name))))
         self.list_desc = []
         self.list_data = self.data_return()
 

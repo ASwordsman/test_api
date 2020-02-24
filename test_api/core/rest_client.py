@@ -1,6 +1,6 @@
 import requests
 
-from test_api.env.env import Env
+from env.env import Env
 import json
 
 

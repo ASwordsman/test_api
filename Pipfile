@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 pyaml = "*"
-allure-pytest-2-6-3 = "*"
+allure-pytest = "*"
 
 [requires]
 python_version = "3.7"

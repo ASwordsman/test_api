@@ -1,7 +1,7 @@
 from pprint import pprint
 
 # from test_api.common.common import fake
-from test_api.core.rest_client import RestClient
+from core.rest_client import RestClient
 
 """
 用户管理模块api的封装

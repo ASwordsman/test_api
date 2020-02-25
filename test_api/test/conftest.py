@@ -1,6 +1,6 @@
 import pytest
 
-from test_api.api.usermanagement import UserManagement, usermanagement
+from api.usermanagement import usermanagement
 
 
 @pytest.fixture()

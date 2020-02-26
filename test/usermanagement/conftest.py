@@ -2,8 +2,8 @@ import logging
 
 import pytest
 import json
-from pprint import pprint
-from test_api.api.usermanagement import UserManagement, usermanagement
+
+from api.usermanagement import UserManagement, usermanagement
 from faker import Faker
 # @pytest.fixture()
 # def login_code():

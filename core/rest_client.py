@@ -1,7 +1,7 @@
 import requests
 import json
 
-from test_api.env_choice.env import Env
+from env_choice.env import Env
 
 
 class RestClient(object):

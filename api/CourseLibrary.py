@@ -1,4 +1,4 @@
-from test_api.core.rest_client import RestClient
+from core.rest_client import RestClient
 
 
 class CourseLibrary(RestClient):

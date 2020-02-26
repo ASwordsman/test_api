@@ -6,8 +6,9 @@ import pytest
 
 import jsonpath
 
-from test_api.Data.execl_data import ExeclData
-from test_api.api.train_get import Train
+from Data.execl_data import ExeclData
+from api.train_get import Train
+from common.allure_report import allure_report_get
 
 data = ExeclData('test')
 train = Train()

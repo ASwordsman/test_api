@@ -1,7 +1,7 @@
 import jsonpath
 
 # 增加课时url调用的参数social/services/rest/course/V2/User/Period
-from test_api.core.rest_client import RestClient
+from core.rest_client import RestClient
 
 
 #

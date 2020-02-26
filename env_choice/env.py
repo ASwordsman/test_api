@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from test_api import settings
+import settings
 
 
 class Env(object):

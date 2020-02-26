@@ -1,11 +1,11 @@
 import time
-from pprint import pprint
+
 
 import allure
 import pytest
-from test_api.api.usermanagement import usermanagement
+from api.usermanagement import usermanagement
 import warnings
-from test_api.Logs.logs import logging
+from Logs.logs import logging
 
 warnings.simplefilter("ignore", ResourceWarning)
 

@@ -36,7 +36,7 @@ execl 文件 ：存放execl测试数据
     有改善建议请联系 微信 wanghaikang123 如有学习需求 也可联系  备注请填 测试学习 --地区 姓名选填
 
 测试报告展示图
-![image](https://github.com/ASwordsman/test_api/blob/master/test_api/jpg/result.png)
+![image](https://github.com/ASwordsman/test_api/blob/master/jpg/result.png)
           
 环境安装
        1.下载 pip install  pipenv

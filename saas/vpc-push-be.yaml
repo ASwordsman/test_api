@@ -1,0 +1,155 @@
+# 定义模块命名空间, 每个服务模块对应一个命名空间
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: push
+---
+# 命名空间内实例资源定义
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limit-range-aeolus
+  namespace: push
+spec:
+  limits:
+  - type: Pod
+    min:
+      cpu: 50m
+      memory: 5Mi
+    max:
+      cpu: 2
+      memory: 8Gi
+  - type: Container
+    defaultRequest:       # 默认的内存/cpu请求
+      cpu: 2
+      memory: 8Gi
+    default:              # 默认的内存/cpu限制
+      cpu: 2
+      memory: 8Gi
+---
+# 命名空间内总体资源限制
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resource-quota-aeolus
+  namespace: 12355
+spec:
+  hard:                    # 每个容器必须有内存请求和限制，以及 CPU 请求和限制
+    requests.cpu: 2       # 所有容器的 CPU 请求总和不能超过2 cpu
+    requests.memory: 8Gi  # 所有容器的内存请求总和不能超过2 GiB
+    limits.cpu: 2         # 所有容器的 CPU 限制总和不能超过4 cpu
+    limits.memory: 8Gi   # 所有容器的内存限制总和不能超过10 GiB
+---
+# Deployment部署方式定义Pod及Container具体参数
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: vpc-push-be
+  namespace: push
+spec:
+  selector:
+    matchLabels:
+      app: vpc-push-be
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: vpc-push-be
+    spec:
+      containers:
+      - name: vpc-push-be
+        image: aeolus.vpc.com/library/push_tob:1.0.0.2
+        imagePullPolicy: IfNotPresent
+        env:
+          # webex
+          - name: WEBEX_TEAMS_ACCESS_TOKEN
+            value: MmEzZTRmYjUtZTRkYy00OWE4LWI5NDAtMDE2NDAyY2IwM2FmNWViOTkxZDItOTdi_PF84_consumer
+          # email
+          - name: EMAIL_HOST
+            value: smtp.yeah.net
+          - name: EMAIL_HOST_USER
+            value: datawind@yeah.net
+          - name: EMAIL_HOST_PASSWORD
+            value: PKACIKCPFPDVPNUB
+          - name: DEFAULT_FROM_EMAIL
+            value: datawind@yeah.net
+          - name: EMAIL_PORT
+            value: "465"
+          # 数据库配置
+          - name: DB_USER
+            value: aeolus_db_w
+          - name: DB_PASSWORD
+            value: ccukDFrkmnQfoy7KPQHKZYC7XzbJsHuS
+          - name: DB_NAME
+            value: aeolus_db
+        command: ["/bin/sh"]
+        args: ["-c", "/opt/tiger/toutiao/app/data/push/run/tob_prod_run.sh"]
+        ports:
+        - containerPort: 12355
+        # 可选, 存活探针, 确定何时重启容器
+        livenessProbe:
+          httpGet:
+            path: /aeolus/notification/api/v2/misc/healthz
+            port: 12355
+            httpHeaders:
+            - name: Content-type
+              value: application/json
+            - name: accept
+              value: application/json, text/plain, */*
+          initialDelaySeconds: 5   # 容器启动后第一次执行探测需要等待多少秒
+          periodSeconds: 60         # 执行探测的频率. 默认是10秒, 最小1秒
+        # 可选, 就绪探针, 确定容器是否已经就绪可以接受流量
+        readinessProbe:
+          httpGet:
+            path: /aeolus/notification/api/v2/misc/healthz
+            port: 12355
+            httpHeaders:
+            - name: Content-type
+              value: application/json
+            - name: accept
+              value: application/json, text/plain, */*
+          initialDelaySeconds: 5
+          periodSeconds: 60
+        volumeMounts:
+        - name: sock
+          mountPath: /opt/tmp/sock
+        - name: hadoop
+          mountPath: /opt/tiger/yarn_deploy/hadoop
+        - name: hive
+          mountPath: /opt/tiger/hive_deploy
+        - name: jdk8
+          mountPath: /opt/tiger/jdk/jdk1.8.0_181
+      volumes:
+      - name: sock
+        hostPath:
+          path: /opt/tmp/sock
+      - name: hadoop
+        hostPath:
+          path: /opt/tiger/yarn_deploy/hadoop
+      - name: hive
+        hostPath:
+          path: /opt/tiger/hive_deploy
+      - name: jdk8
+        hostPath:
+          path: /opt/tiger/jdk/jdk1.8.0_181
+
+---
+# Service资源定义
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpc-push-be
+  namespace: push
+  annotations:
+    consul.register/enabled: "true"
+    consul.register/service.name: "data.push.api"  # service.name 集群内服务自动发现注册至consul用
+    consul.register/service.health.ttl: "8640000s"
+spec:
+  # 定义外部访问端口到服务端口映射
+  type: NodePort
+  ports:
+    - port: 12355
+      nodePort: 31688
+      targetPort: 12355
+  selector:
+    app: vpc-push-be
